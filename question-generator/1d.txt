@@ -1,0 +1,6 @@
+A particle moves at %sm/s for %ss. How far is it displaced in meters?;4vts
+A ball travels for %ss and stops %sm from it's original position. What is it's average velocity?;4tsv
+A ball travels %sm with an average velocity of %sm/s. How long does the journey take?;4svt
+A particle initially moving at %sm/s accelerates at %sm/s² in the opposite direction for %ss. What is it's final velocity?;2uatv
+A ball is initially travelling at %sm/s and accelerates at %sm/s² in the direction for until it has travelled %sm. How long does this take?;2vast
+A rocket accelerates with initial velocity %sm/s with net acceleration %sm/s². How far has it travelled after %ss?;2vats
