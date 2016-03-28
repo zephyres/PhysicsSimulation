@@ -1,3 +1,5 @@
+package physicssim.question;
+
 import java.util.Random;
 import java.util.HashMap;
 import static java.lang.Math.*;

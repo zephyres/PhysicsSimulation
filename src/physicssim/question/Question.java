@@ -1,3 +1,5 @@
+package physicssim.question;
+
 public class Question {
 	private String text;
 	private double answer;
