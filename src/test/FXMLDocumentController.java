@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package physicssim;
+package test;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +14,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import physicssim.GraphicsContainer;
+import physicssim.Pendulum;
 
 /**
  *

@@ -25,7 +25,7 @@ public class Question {
 		return answer;
 	}
 	
-	public boolean checkAnswer(int answer) {
-		return answer == getAnswer();
+	public String toString() {
+		return String.format("Question: %s; Answer: %f", text, answer);
 	}
 }

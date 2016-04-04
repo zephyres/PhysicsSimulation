@@ -28,5 +28,5 @@ public abstract class QuestionManager {
 		return questions;
 	}
 	
-	public abstract Question generateQuestion();
+	public abstract Question generateQuestion(int id);
 }
