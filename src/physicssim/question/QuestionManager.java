@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.File;
 
 public abstract class QuestionManager {
+	private Question current;
 	private String[] questions;
 	
 	public QuestionManager(String filename) {
@@ -26,6 +27,14 @@ public abstract class QuestionManager {
 	
 	public String[] getQuestions() {
 		return questions;
+	}
+	
+	public Question getCurrentQuestion() {
+		return current;
+	}
+	
+	public void nextQuestion(int id) {
+		current = generateQuestion(id);
 	}
 	
 	public abstract Question generateQuestion(int id);

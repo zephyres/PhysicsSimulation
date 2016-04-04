@@ -18,7 +18,7 @@ public class OneDimensionalQuestion extends QuestionManager {
 	}
 	
 	public OneDimensionalQuestion() {
-		super("1d-questions.txt");
+		super("src/physicssim/question/1d-questions.txt");
 	}
 	
 	@Override

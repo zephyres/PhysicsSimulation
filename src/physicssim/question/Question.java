@@ -2,6 +2,7 @@ package physicssim.question;
 
 public class Question {
 	private String text;
+	private String id;
 	private double answer;
 	
 	public Question(String text, double answer) {
@@ -12,6 +13,8 @@ public class Question {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	//public void setEquation(String id)
 	
 	public void setAnswer(double answer) {
 		this.answer = answer;
