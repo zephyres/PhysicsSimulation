@@ -19,6 +19,8 @@ public class FXMLDocumentController implements Initializable {
 	
 	private GraphicsContainer gc;
 	private QuestionManager qm;
+	private StatPersister sp;
+	private StatManager sm;
 	
 	@FXML
 	private ListView<String> basicsList;
@@ -38,9 +40,14 @@ public class FXMLDocumentController implements Initializable {
 	private Label correctLabel;
 	@FXML
 	private Label statistics;
+	@FXML
+	private Button checkButton;
 	
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {		
+	public void initialize(URL url, ResourceBundle rb) {	
+		sp = new StatPersister();
+		sm = sp.load();
+		
 		basicsList.getItems().addAll("Newton's Laws", "1D Motion", "2D Motion", "Projectile Motion");
 		shmList.getItems().addAll("Spring", "Pendulum");
 		
@@ -71,10 +78,18 @@ public class FXMLDocumentController implements Initializable {
 		try {
 			double ans = Double.parseDouble(s);
 			
-			if(ans == qm.getCurrentQuestion().getAnswer())
+			if(ans == qm.getCurrentQuestion().getAnswer()) {
 				correctLabel.setText("Correct!");
-			else
+				checkButton.setDisable(true);
+				sm.right();
+			}
+			
+			else {
 				correctLabel.setText("Incorrect");
+				sm.wrong();
+			}
+			
+			sp.save(sm);
 			
 		} catch(Exception e) {
 			correctLabel.setText("Invalid input");
@@ -86,6 +101,7 @@ public class FXMLDocumentController implements Initializable {
 		qm.nextQuestion(0);
 		questionLabel.setText(qm.getCurrentQuestion().getText());
 		correctLabel.setText("");
+		checkButton.setDisable(false);
 	}
 
 	@FXML
