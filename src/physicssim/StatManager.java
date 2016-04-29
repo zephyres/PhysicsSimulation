@@ -62,4 +62,16 @@ public class StatManager {
 		setTotalTried(getTotalTried() + 1);
 		setCurrentStreak(0);
 	}
+	
+	public String toString() {
+		return String.format(
+			"Current streak: %d\n"
+			+ "Longest streak: %d\n"
+			+ "Total solved: %d\n"
+			+ "Total tried: %d\n"
+			+ "Accuracy: %.2f%%",
+			currentStreak, longestStreak, totalSolved,
+			totalTried, (float) totalSolved / totalTried * 100
+		);
+	}
 }

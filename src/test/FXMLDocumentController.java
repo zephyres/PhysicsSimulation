@@ -3,6 +3,9 @@ package test;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -51,6 +54,13 @@ public class FXMLDocumentController implements Initializable {
 		basicsList.getItems().addAll("Newton's Laws", "1D Motion", "2D Motion", "Projectile Motion");
 		shmList.getItems().addAll("Spring", "Pendulum");
 		
+		ListView[] listViews = {basicsList, shmList};
+		
+		for(ListView lv : listViews)
+			lv.getSelectionModel().selectedItemProperty().addListener((a, b, c) -> updateUI((String) c));
+		
+		updateUI("Newton's Laws");
+		updateStatistics();
 		initQuestions();
 		initCanvas();
 	}
@@ -94,6 +104,8 @@ public class FXMLDocumentController implements Initializable {
 		} catch(Exception e) {
 			correctLabel.setText("Invalid input");
 		}
+		
+		updateStatistics();
 	}
 
 	@FXML
@@ -107,5 +119,13 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private void getHint(ActionEvent event) {
 		
+	}
+	
+	private void updateStatistics() {
+		statistics.setText(sm.toString());
+	}
+	
+	private void updateUI(String id) {
+		System.out.println(id);
 	}
 }

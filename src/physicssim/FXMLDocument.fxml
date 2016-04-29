@@ -11,13 +11,13 @@
   <items>
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="286.0" SplitPane.resizableWithParent="false">
          <children>
-            <Accordion prefHeight="720.0" prefWidth="437.0">
+            <Accordion prefHeight="642.0" prefWidth="288.0">
               <panes>
-                <TitledPane animated="false" text="Basics">
+                <TitledPane animated="false" prefHeight="424.0" prefWidth="212.0" text="Basics">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="basicsList" prefHeight="665.0" prefWidth="432.0" />
+                              <ListView fx:id="basicsList" prefHeight="609.0" prefWidth="284.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -26,7 +26,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView prefHeight="670.0" prefWidth="435.0" />
+                              <ListView prefHeight="587.0" prefWidth="283.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -90,7 +90,7 @@
                               <Label fx:id="correctLabel" layoutX="36.0" layoutY="93.0" prefHeight="17.0" prefWidth="162.0" text="correct" />
                               <Button layoutX="219.0" layoutY="120.0" mnemonicParsing="false" onAction="#getHint" prefHeight="27.0" prefWidth="31.0" text="?" textAlignment="CENTER" />
                               <Separator layoutX="36.0" layoutY="181.0" prefHeight="18.0" prefWidth="660.0" />
-                              <Label fx:id="statistics" layoutX="57.0" layoutY="270.0" prefHeight="198.0" prefWidth="620.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus vulputate ipsum vel efficitur. Sed blandit elit sed lectus ornare, ac facilisis erat tempus. Vestibulum gravida aliquet odio ut sodales. Maecenas ut luctus mi. Donec pellentesque finibus sem ac porta. Mauris facilisis libero ante, sit amet pulvinar elit ornare eu. Quisque vel erat quis elit aliquam viverra sed ac nibh." wrapText="true" />
+                              <Label fx:id="statistics" alignment="TOP_LEFT" layoutX="44.0" layoutY="243.0" prefHeight="171.0" prefWidth="277.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus vulputate ipsum vel efficitur. Sed blandit elit sed lectus ornare, ac facilisis erat tempus. Vestibulum gravida aliquet odio ut sodales. Maecenas ut luctus mi. Donec pellentesque finibus sem ac porta. Mauris facilisis libero ante, sit amet pulvinar elit ornare eu. Quisque vel erat quis elit aliquam viverra sed ac nibh." wrapText="true" />
                               <Label layoutX="44.0" layoutY="216.0" text="Statistics" />
                            </children></AnchorPane>
                      </content>
