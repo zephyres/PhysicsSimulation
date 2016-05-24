@@ -46,6 +46,8 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private Button checkButton;
 	
+	private String currentTab;
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
 		sp = new StatPersister();
@@ -61,13 +63,16 @@ public class FXMLDocumentController implements Initializable {
 		
 		updateUI("Newton's Laws");
 		updateStatistics();
-		initQuestions();
-		initCanvas();
 	}
 	
 	private void initQuestions() {
-		qm = new OneDimensionalQuestion(); //deal with this later
-		nextQuestion(null);
+		if(currentTab.equals("Newton's Laws"));
+			//qm = ...
+		else if(currentTab.equals("1D Motion"))
+			qm = new OneDimensionalQuestion();
+		
+		if(qm != null)
+			nextQuestion(null);
 	}
 	
 	private void initCanvas() {
@@ -91,6 +96,7 @@ public class FXMLDocumentController implements Initializable {
 			if(ans == qm.getCurrentQuestion().getAnswer()) {
 				correctLabel.setText("Correct!");
 				checkButton.setDisable(true);
+				answerField.setText("");
 				sm.right();
 			}
 			
@@ -126,6 +132,9 @@ public class FXMLDocumentController implements Initializable {
 	}
 	
 	private void updateUI(String id) {
-		System.out.println(id);
+		currentTab = id;
+		
+		initQuestions();
+		initCanvas();
 	}
 }

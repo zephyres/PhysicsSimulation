@@ -1,14 +1,16 @@
-package util;
+package physicssim.util;
 
 public class EquationUtility {
-	public static double eq(int n, double x, double y, double z) {
-		switch(n) {
-			case 0: return eq0(x, y, z);
-			case 1: return eq1(x, y, z);
-			case 2: return eq2(x, y, z);
-			case 3: return eq3(x, y, z);
-			default: return eq4(x, y, z);
+	public static double eq(String sec, int n, double[] values) {
+		if(sec.equals("1D Motion")) switch(n) {
+			case 0: return eq0(values[1], values[2], values[3]);
+			case 1: return eq1(values[1], values[2], values[3]);
+			case 2: return eq2(values[1], values[2], values[3]);
+			case 3: return eq3(values[1], values[2], values[3]);
+			default: return eq4(values[1], values[2], values[3]);
 		}
+		
+		else return 0;
 	}
 	
 	public static double eq0(double u, double a, double t) {
