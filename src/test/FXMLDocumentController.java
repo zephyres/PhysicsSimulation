@@ -3,9 +3,6 @@ package test;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -15,8 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import physicssim.*;
-import physicssim.question.OneDimensionalQuestion;
-import physicssim.question.QuestionManager;
+import physicssim.question.*;
 
 public class FXMLDocumentController implements Initializable {
 	
@@ -47,6 +43,8 @@ public class FXMLDocumentController implements Initializable {
 	private Button checkButton;
 	
 	private String currentTab;
+	@FXML
+	private Button nextButton;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
@@ -66,8 +64,8 @@ public class FXMLDocumentController implements Initializable {
 	}
 	
 	private void initQuestions() {
-		if(currentTab.equals("Newton's Laws"));
-			//qm = ...
+		if(currentTab.equals("Newton's Laws"))
+			qm = new NewtonsLawsQuestion();
 		else if(currentTab.equals("1D Motion"))
 			qm = new OneDimensionalQuestion();
 		
@@ -96,7 +94,7 @@ public class FXMLDocumentController implements Initializable {
 			if(ans == qm.getCurrentQuestion().getAnswer()) {
 				correctLabel.setText("Correct!");
 				checkButton.setDisable(true);
-				answerField.setText("");
+				nextButton.setDisable(false);
 				sm.right();
 			}
 			
@@ -119,7 +117,9 @@ public class FXMLDocumentController implements Initializable {
 		qm.nextQuestion(0);
 		questionLabel.setText(qm.getCurrentQuestion().getText());
 		correctLabel.setText("");
+		answerField.setText("");
 		checkButton.setDisable(false);
+		nextButton.setDisable(true);
 	}
 
 	@FXML

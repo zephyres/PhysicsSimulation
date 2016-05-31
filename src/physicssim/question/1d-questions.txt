@@ -1,4 +1,4 @@
-A ball initially moving at %sm/s accelerates at %sm/s² for %ss. What is its final velocity?;0v;uat
-A ball has accelerated at %sm/s² for %ss and now is moving at %sm/s. What was its initial velocity?;0u;atv
-A ball initially moving at %sm/s accelerates and reaches %sm/s in %ss. What was its average acceleration?;0a;uvt
-A ball initially moving at %sm/s accelerates at %sm/s² and reaches a velocity of %sm/s. How long did it accelerate for?;0t;uav
+A ball initially moving at %sm/s accelerates at %sm/s² for %ss. What is its final velocity?;0v;uat;0
+A ball has accelerated at %sm/s² for %ss and now is moving at %sm/s. What was its initial velocity?;0u;atv;0
+A ball initially moving at %sm/s accelerates and reaches %sm/s in %ss. What was its average acceleration?;0a;uvt;0
+A ball initially moving at %sm/s accelerates at %sm/s² and reaches a velocity of %sm/s. How long did it accelerate for?;0t;uav;0

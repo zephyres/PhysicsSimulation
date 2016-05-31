@@ -20,9 +20,9 @@ public class OneDimensionalQuestion extends QuestionManager {
 				return rand.nextInt(5) + 1;
 			case 't':
 				return rand.nextInt(15) + 5;
-			default:
-				return rand.nextInt(4);
 		}
+		
+		return 0;
 	}
 	
 	@Override

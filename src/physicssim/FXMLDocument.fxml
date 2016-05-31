@@ -86,7 +86,7 @@
                               <Label fx:id="questionLabel" layoutX="40.0" layoutY="30.0" prefHeight="54.0" prefWidth="642.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus vulputate ipsum vel efficitur. " wrapText="true" />
                               <TextField fx:id="answerField" layoutX="34.0" layoutY="120.0" />
                               <Button fx:id="checkButton" layoutX="268.0" layoutY="120.0" mnemonicParsing="false" onAction="#checkAnswer" text="Check Answer" />
-                              <Button layoutX="386.0" layoutY="120.0" mnemonicParsing="false" onAction="#nextQuestion" text="Next Question" />
+                              <Button fx:id="nextButton" layoutX="386.0" layoutY="120.0" mnemonicParsing="false" onAction="#nextQuestion" text="Next Question" />
                               <Label fx:id="correctLabel" layoutX="36.0" layoutY="93.0" prefHeight="17.0" prefWidth="162.0" text="correct" />
                               <Button layoutX="219.0" layoutY="120.0" mnemonicParsing="false" onAction="#getHint" prefHeight="27.0" prefWidth="31.0" text="?" textAlignment="CENTER" />
                               <Separator layoutX="36.0" layoutY="181.0" prefHeight="18.0" prefWidth="660.0" />

@@ -10,6 +10,10 @@ public class EquationUtility {
 			default: return eq4(values[1], values[2], values[3]);
 		}
 		
+		if(sec.equals("Newton's Laws")) switch(n) {
+			default: return eq5(values[1], values[2]);
+		}
+		
 		else return 0;
 	}
 	
@@ -31,5 +35,9 @@ public class EquationUtility {
 	
 	public static double eq4(double u, double v, double t) {
 		return (u + v) * t / 2;
+	}
+	
+	public static double eq5(double m, double a) {
+		return m * a;
 	}
 }
