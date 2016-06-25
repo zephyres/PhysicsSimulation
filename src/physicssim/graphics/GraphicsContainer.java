@@ -1,4 +1,4 @@
-package physicssim;
+package physicssim.graphics;
 
 import java.util.ArrayList;
 

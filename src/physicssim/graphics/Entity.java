@@ -1,4 +1,4 @@
-package physicssim;
+package physicssim.graphics;
 
 import javafx.scene.canvas.GraphicsContext;
 

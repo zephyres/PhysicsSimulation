@@ -1,13 +1,12 @@
 package physicssim;
 
+import java.lang.Math;
+
 public class StatManager {
 	private int totalSolved, currentStreak, longestStreak, totalTried;
 	
 	public StatManager() {
-		totalSolved = 0;
-		currentStreak = 0;
-		longestStreak = 0;
-		totalTried = 0;
+		reset();
 	}
 	
 	public StatManager(int cs, int ls, int ts, int tt) {
@@ -63,7 +62,16 @@ public class StatManager {
 		setCurrentStreak(0);
 	}
 	
+	public void reset() {
+		totalSolved = 0;
+		currentStreak = 0;
+		longestStreak = 0;
+		totalTried = 0;
+	}
+	
 	public String toString() {
+		float acc = (float) totalSolved / totalTried * 100;
+		
 		return String.format(
 			"Current streak: %d\n"
 			+ "Longest streak: %d\n"
@@ -71,7 +79,7 @@ public class StatManager {
 			+ "Total tried: %d\n"
 			+ "Accuracy: %.2f%%",
 			currentStreak, longestStreak, totalSolved,
-			totalTried, (float) totalSolved / totalTried * 100
+			totalTried, (Float.isNaN(acc) ? 0 : acc)
 		);
 	}
 }

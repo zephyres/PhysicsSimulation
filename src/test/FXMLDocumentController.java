@@ -1,16 +1,21 @@
 package test;
 
+import physicssim.graphics.GraphicsContainer;
+import physicssim.graphics.SHMContainer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import physicssim.*;
 import physicssim.question.*;
 
@@ -30,8 +35,6 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private Canvas canvas;
 	@FXML
-	private Button start;
-	@FXML
 	private Label questionLabel;
 	@FXML
 	private TextField answerField;
@@ -45,6 +48,8 @@ public class FXMLDocumentController implements Initializable {
 	private String currentTab;
 	@FXML
 	private Button nextButton;
+	@FXML
+	private GridPane gridPane;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
@@ -57,9 +62,9 @@ public class FXMLDocumentController implements Initializable {
 		ListView[] listViews = {basicsList, shmList};
 		
 		for(ListView lv : listViews)
-			lv.getSelectionModel().selectedItemProperty().addListener((a, b, c) -> updateUI((String) c));
+			lv.getSelectionModel().selectedItemProperty().addListener((a, b, c) -> update((String) c));
 		
-		updateUI("Newton's Laws");
+		update("Newton's Laws");
 		updateStatistics();
 	}
 	
@@ -74,14 +79,18 @@ public class FXMLDocumentController implements Initializable {
 	}
 	
 	private void initCanvas() {
-		gc = new GraphicsContainer(canvas, canvas.getGraphicsContext2D());
-		gc.addEntity(new Pendulum(160, 600, 0.25));
+		gc = new SHMContainer(canvas, canvas.getGraphicsContext2D());
 	}
-
-	@FXML
-	private void startPendulumSimulation(ActionEvent event) {
-		initCanvas();
-		gc.start();
+	
+	private void initButtonPane() {
+		if(currentTab.equals("Newton's Laws")) {
+			Slider slider = new Slider(0, 1, 0.5);
+			slider.setShowTickLabels(true);
+			slider.setShowTickMarks(true);
+			Label l = new Label("Test slider");
+			gridPane.add(slider, 0, 0);
+			gridPane.add(l, 1, 0);
+		}
 	}
 
 	@FXML
@@ -131,10 +140,23 @@ public class FXMLDocumentController implements Initializable {
 		statistics.setText(sm.toString());
 	}
 	
-	private void updateUI(String id) {
+	public void update(String id) {
 		currentTab = id;
-		
 		initQuestions();
 		initCanvas();
+		initButtonPane();
+	}
+
+	@FXML
+	private void resetStatistics(ActionEvent event) {
+		sm.reset();
+		sp.save(sm);
+		updateStatistics();
+	}
+
+	@FXML
+	private void startSimulation(ActionEvent event) {
+		initCanvas();
+		gc.start();
 	}
 }

@@ -52,11 +52,12 @@ public abstract class QuestionManager {
 	public Question generateQuestion(int id) {
 		Question question = null;
 		char[][] map = getMap();
-		double[] values = new double[questions[id].split(";")[2].length()+1];
+		String[] sq = questions[id].split(";");
+		double[] values = new double[sq[2].length()+1];
 		
 		// Generate known values for given question
 		for(int i = 1; i < values.length; i++)
-			values[i] = generateValue(map[id][i]) * (questions[id].split(";")[3].equals("1") ? 10 : 1);
+			values[i] = generateValue(map[id][i], Integer.parseInt(sq[sq.length-1]));
 		
 		// Finds final value according to equation
 		values[0] = eq(getSection(), id, values);
@@ -94,6 +95,6 @@ public abstract class QuestionManager {
 	}
 	
 	protected abstract char[][] getMap();
-	protected abstract double generateValue(char c);
+	protected abstract double generateValue(char c, int sizeType);
 	protected abstract String getSection();
 }

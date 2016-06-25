@@ -8,10 +8,10 @@ public class OneDimensionalQuestion extends QuestionManager {
 		super("src/physicssim/question/1d-questions.txt");
 	}
 	
-	protected double generateValue(char c) {
+	protected double generateValue(char c, int sizeType) {
 		Random rand = new Random();
 		
-		switch(c) {
+		if(sizeType == 0) switch(c) {
 			case 's': case 'x':
 				return rand.nextInt(35) + 10;
 			case 'v': case 'u':
@@ -20,6 +20,17 @@ public class OneDimensionalQuestion extends QuestionManager {
 				return rand.nextInt(5) + 1;
 			case 't':
 				return rand.nextInt(15) + 5;
+		}
+		
+		else switch(c) {
+			case 's': case 'x':
+				return rand.nextInt(5000) + 1000;
+			case 'v': case 'u':
+				return rand.nextInt(10000) + 5000;
+			case 'a':
+				return rand.nextInt(500) + 100;
+			case 't':
+				return rand.nextInt(50) + 10;
 		}
 		
 		return 0;
