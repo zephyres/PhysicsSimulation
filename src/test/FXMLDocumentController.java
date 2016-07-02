@@ -3,11 +3,15 @@ package test;
 import physicssim.graphics.GraphicsContainer;
 import physicssim.graphics.SHMContainer;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,11 +20,13 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javax.swing.event.DocumentEvent;
 import physicssim.*;
 import physicssim.question.*;
 
 public class FXMLDocumentController implements Initializable {
 	
+	private ArrayList<Slider> sliders;
 	private GraphicsContainer gc;
 	private QuestionManager qm;
 	private StatPersister sp;
@@ -79,18 +85,31 @@ public class FXMLDocumentController implements Initializable {
 	}
 	
 	private void initCanvas() {
-		gc = new SHMContainer(canvas, canvas.getGraphicsContext2D());
+		gc = new SHMContainer(canvas, canvas.getGraphicsContext2D(), sliders);
 	}
 	
 	private void initButtonPane() {
-		if(currentTab.equals("Newton's Laws")) {
-			Slider slider = new Slider(0, 1, 0.5);
-			slider.setShowTickLabels(true);
-			slider.setShowTickMarks(true);
-			Label l = new Label("Test slider");
-			gridPane.add(slider, 0, 0);
-			gridPane.add(l, 1, 0);
+		
+		sliders = new ArrayList<Slider>();
+		gridPane.setVgap(20);
+		gridPane.getColumnConstraints().get(0).setMaxWidth(80);
+		gridPane.getColumnConstraints().get(0).halignmentProperty().set(HPos.LEFT);
+		
+		if(currentTab.equals("Pendulum")) {
+			addSlider("Length", 0.1, 1, 0.55);
 		}
+	}
+	
+	private void addSlider(String name, double min, double max, double val) {
+		Slider s = new Slider(min, max, val);
+		Label l = new Label(name);
+		
+		s.setShowTickLabels(true);
+		s.setShowTickMarks(true);
+		s.addEventHandler(EventType.ROOT, (e) -> gc.setIsDifferent(true));
+		
+		gridPane.addRow(sliders.size(), l, s);
+		sliders.add(s);
 	}
 
 	@FXML

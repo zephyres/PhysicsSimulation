@@ -5,19 +5,24 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
 public class GraphicsContainer extends AnimationTimer {
 	
+	private boolean isDifferent;
+	private ArrayList<Slider> sliders;
 	private ArrayList<Entity> activeEntities;
 	private GraphicsContext gc;
 	private Canvas canvas;
 	private Color backgroundColor;
 	private long previousTime;
 	
-	public GraphicsContainer(Canvas canvas, GraphicsContext gc) {
+	public GraphicsContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
+		this.sliders = sliders;
 		this.canvas = canvas;
 		this.gc = gc;
+		this.isDifferent = true;
 		
 		this.activeEntities = new ArrayList<Entity>();
 		this.previousTime = System.nanoTime();
@@ -66,5 +71,17 @@ public class GraphicsContainer extends AnimationTimer {
 	
 	public ArrayList<Entity> getActiveEntities() {
 		return activeEntities;
+	}
+	
+	public ArrayList<Slider> getSliders() {
+		return sliders;
+	}
+	
+	public boolean isDifferent() {
+		return isDifferent;
+	}
+	
+	public void setIsDifferent(boolean isDifferent) {
+		this.isDifferent = isDifferent;
 	}
 }

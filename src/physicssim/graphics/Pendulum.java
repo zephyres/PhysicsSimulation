@@ -21,8 +21,8 @@ public class Pendulum extends Entity {
 		
 		double x1 = width / 2;
 		double y1 = height / 8;
-		double x2 = x1 - length * Math.sin(theta);
-		double y2 = y1 + length * Math.cos(theta);
+		double x2 = x1 - length * 100 * Math.sin(theta);
+		double y2 = y1 + length * 100 * Math.cos(theta);
 		
 		gc.setStroke(Color.WHITE);
 		gc.strokeLine(x1, y1, x2, y2);
@@ -32,8 +32,18 @@ public class Pendulum extends Entity {
 	}
 	
 	public void update(double delta) {
+		if(getContainer().isDifferent()) {
+			System.out.println("hello");
+			setLength(getContainer().getSliders().get(0).getValue());
+			getContainer().setIsDifferent(false);
+		}
+		
 		a = -gravity / length * Math.sin(theta);
 		w += a * delta;
 		theta += w * delta;
+	}
+	
+	public void setLength(double length) {
+		this.length = length;
 	}
 }
