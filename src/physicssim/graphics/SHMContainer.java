@@ -9,7 +9,7 @@ public class SHMContainer extends GraphicsContainer {
 
 	public SHMContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
 		super(canvas, gc, sliders);
-		addEntity(new Pendulum(160, 600, 0.25));
+		addEntity(new Pendulum(2.45, 9.8, 0.25));
 	}
 	
 }

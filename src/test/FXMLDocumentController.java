@@ -5,6 +5,8 @@ import physicssim.graphics.SHMContainer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -56,6 +58,8 @@ public class FXMLDocumentController implements Initializable {
 	private Button nextButton;
 	@FXML
 	private GridPane gridPane;
+	@FXML
+	private Button runButton;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
@@ -90,13 +94,16 @@ public class FXMLDocumentController implements Initializable {
 	
 	private void initButtonPane() {
 		
+		gridPane.getChildren().remove(0, gridPane.getChildren().size());
 		sliders = new ArrayList<Slider>();
 		gridPane.setVgap(20);
 		gridPane.getColumnConstraints().get(0).setMaxWidth(80);
 		gridPane.getColumnConstraints().get(0).halignmentProperty().set(HPos.LEFT);
 		
 		if(currentTab.equals("Pendulum")) {
-			addSlider("Length", 0.1, 1, 0.55);
+			addSlider("Length", 0.1, 4, 1);
+			addSlider("Gravity", 0.1, 30, 9.8);
+			addSlider("Angle", 10, 90, 45);
 		}
 	}
 	
@@ -106,7 +113,13 @@ public class FXMLDocumentController implements Initializable {
 		
 		s.setShowTickLabels(true);
 		s.setShowTickMarks(true);
-		s.addEventHandler(EventType.ROOT, (e) -> gc.setIsDifferent(true));
+		
+		s.valueProperty().addListener( new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				gc.setIsDifferent(true);
+			}
+		});
 		
 		gridPane.addRow(sliders.size(), l, s);
 		sliders.add(s);
@@ -164,6 +177,7 @@ public class FXMLDocumentController implements Initializable {
 		initQuestions();
 		initCanvas();
 		initButtonPane();
+		initSimulation();
 	}
 
 	@FXML
@@ -175,7 +189,13 @@ public class FXMLDocumentController implements Initializable {
 
 	@FXML
 	private void startSimulation(ActionEvent event) {
-		initCanvas();
-		gc.start();
+		gc.setRunning(!gc.isRunning());
+	}
+	
+	private void initSimulation() {
+		if(currentTab.equals("Pendulum")) {
+			initCanvas();
+			gc.start();
+		}
 	}
 }

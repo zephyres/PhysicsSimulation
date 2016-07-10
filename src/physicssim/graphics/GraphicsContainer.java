@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 
 public class GraphicsContainer extends AnimationTimer {
 	
+	private boolean isRunning;
 	private boolean isDifferent;
 	private ArrayList<Slider> sliders;
 	private ArrayList<Entity> activeEntities;
@@ -23,6 +24,7 @@ public class GraphicsContainer extends AnimationTimer {
 		this.canvas = canvas;
 		this.gc = gc;
 		this.isDifferent = true;
+		this.isRunning = false;
 		
 		this.activeEntities = new ArrayList<Entity>();
 		this.previousTime = System.nanoTime();
@@ -35,7 +37,9 @@ public class GraphicsContainer extends AnimationTimer {
 		previousTime = currentTime;
 		
 		render(gc);
-		update(delta);
+		if(isRunning()) {
+			update(delta);
+		}
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -81,7 +85,15 @@ public class GraphicsContainer extends AnimationTimer {
 		return isDifferent;
 	}
 	
+	public boolean isRunning() {
+		return isRunning;
+	}
+	
 	public void setIsDifferent(boolean isDifferent) {
 		this.isDifferent = isDifferent;
+	}
+	
+	public void setRunning(boolean isRunning) {
+		this.isRunning = isRunning;
 	}
 }

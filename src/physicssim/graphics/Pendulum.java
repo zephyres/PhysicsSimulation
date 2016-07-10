@@ -29,15 +29,23 @@ public class Pendulum extends Entity {
 		
 		gc.setFill(Color.GRAY);
 		gc.fillOval(x2 - R/2, y2 - R/2, R, R);
+		
+		if(getContainer().isDifferent()) {
+			setLength(getContainer().getSliders().get(0).getValue());
+			setGravity(getContainer().getSliders().get(1).getValue());
+			setAngle(Math.toRadians(getContainer().getSliders().get(2).getValue()));
+			getContainer().setIsDifferent(false);
+			getContainer().setRunning(false);
+		}
+		
+		gc.setFill(Color.WHITE);
+		gc.strokeText(String.format("Length: %.2fm", length), 10, 366);
+		gc.strokeText(String.format("Gravity: %.2fms⁻²", gravity), 10, 386);
+		gc.strokeText(String.format("Angle: %.2f rad", theta), 10, 406);
+		gc.strokeText(String.format("Speed: %.2fms⁻¹", Math.abs(w * length)), 10, 426);
 	}
 	
 	public void update(double delta) {
-		if(getContainer().isDifferent()) {
-			System.out.println("hello");
-			setLength(getContainer().getSliders().get(0).getValue());
-			getContainer().setIsDifferent(false);
-		}
-		
 		a = -gravity / length * Math.sin(theta);
 		w += a * delta;
 		theta += w * delta;
@@ -45,5 +53,14 @@ public class Pendulum extends Entity {
 	
 	public void setLength(double length) {
 		this.length = length;
+	}
+	
+	public void setGravity(double g) {
+		this.gravity = g;
+	}
+	
+	public void setAngle(double a) {
+		this.theta = a;
+		this.w = 0;
 	}
 }
