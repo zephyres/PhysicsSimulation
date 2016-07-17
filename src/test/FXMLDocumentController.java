@@ -1,19 +1,17 @@
 package test;
 
 import physicssim.graphics.GraphicsContainer;
-import physicssim.graphics.SHMContainer;
+import physicssim.graphics.PendulumContainer;
+import physicssim.graphics.ProjectileMotionContainer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +20,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javax.swing.event.DocumentEvent;
 import physicssim.*;
 import physicssim.question.*;
 
@@ -88,10 +85,6 @@ public class FXMLDocumentController implements Initializable {
 			nextQuestion(null);
 	}
 	
-	private void initCanvas() {
-		gc = new SHMContainer(canvas, canvas.getGraphicsContext2D(), sliders);
-	}
-	
 	private void initButtonPane() {
 		
 		gridPane.getChildren().remove(0, gridPane.getChildren().size());
@@ -104,6 +97,18 @@ public class FXMLDocumentController implements Initializable {
 			addSlider("Length", 0.1, 4, 1);
 			addSlider("Gravity", 0.1, 30, 9.8);
 			addSlider("Angle", 10, 90, 45);
+		}
+	}
+	
+	private void initSimulation() {
+		if(currentTab.equals("Pendulum")) {
+			gc = new PendulumContainer(canvas, canvas.getGraphicsContext2D(), sliders);
+			gc.start();
+		}
+		
+		if(currentTab.equals("Projectile Motion")) {
+			gc = new ProjectileMotionContainer(canvas, canvas.getGraphicsContext2D(), sliders);
+			gc.start();
 		}
 	}
 	
@@ -175,7 +180,6 @@ public class FXMLDocumentController implements Initializable {
 	public void update(String id) {
 		currentTab = id;
 		initQuestions();
-		initCanvas();
 		initButtonPane();
 		initSimulation();
 	}
@@ -190,12 +194,5 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private void startSimulation(ActionEvent event) {
 		gc.setRunning(!gc.isRunning());
-	}
-	
-	private void initSimulation() {
-		if(currentTab.equals("Pendulum")) {
-			initCanvas();
-			gc.start();
-		}
 	}
 }
