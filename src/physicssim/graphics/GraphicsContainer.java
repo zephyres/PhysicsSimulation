@@ -8,10 +8,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
-public class GraphicsContainer extends AnimationTimer {
+public abstract class GraphicsContainer extends AnimationTimer {
 	
 	private boolean isRunning;
 	private boolean isDifferent;
+	private boolean simulatedEnded;
 	private ArrayList<Slider> sliders;
 	private ArrayList<Entity> activeEntities;
 	private GraphicsContext gc;
@@ -25,6 +26,7 @@ public class GraphicsContainer extends AnimationTimer {
 		this.gc = gc;
 		this.isDifferent = true;
 		this.isRunning = false;
+		this.simulatedEnded = false;
 		
 		this.activeEntities = new ArrayList<Entity>();
 		this.previousTime = System.nanoTime();
@@ -64,6 +66,11 @@ public class GraphicsContainer extends AnimationTimer {
 		e.setContainer(null);
 	}
 	
+	public void removeAllEntities() {
+		for(Entity e : activeEntities)
+			removeEntity(e);
+	}
+	
 	public void setBackgroundColor(Color c) {
 		backgroundColor = c;
 	}
@@ -89,11 +96,27 @@ public class GraphicsContainer extends AnimationTimer {
 		return isRunning;
 	}
 	
+	public void setSimulatedEnded(boolean s) {
+		this.simulatedEnded = s;
+	}
+	
+	public boolean simulationEnded() {
+		return this.simulatedEnded;
+	}
+	
 	public void setIsDifferent(boolean isDifferent) {
 		this.isDifferent = isDifferent;
 	}
 	
 	public void setRunning(boolean isRunning) {
+		System.out.println(isRunning);
+		if(isRunning && simulatedEnded) {
+			init();
+			this.simulatedEnded = false;
+		}
+		
 		this.isRunning = isRunning;
 	}
+	
+	public abstract void init();
 }

@@ -9,7 +9,13 @@ public class ProjectileMotionContainer extends GraphicsContainer {
 
 	public ProjectileMotionContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
 		super(canvas, gc, sliders);
-		this.addEntity(new Cannon(100, 400, 70));
+		init();
+	}
+	
+	public void init() {
+		removeAllEntities();
+		addEntity(new Projectile(20, 450));
+		addEntity(new Cannon(20, 450));
 	}
 	
 }
