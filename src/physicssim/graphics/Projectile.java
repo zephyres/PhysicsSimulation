@@ -8,16 +8,14 @@ public class Projectile extends Entity {
 	
 	private final double WIDTH = 5, HEIGHT = 5;
 	private double vx, vy, g;
+	private boolean vNotDefined;
 	
 	public Projectile(double x, double y) {
 		setX(x);
 		setY(y);
-		double v = 50;
-		double angle = 70;
 		
+		vNotDefined = true;
 		g = 9;
-		this.vx = v * Math.cos(Math.toRadians(angle));
-		this.vy = v * Math.sin(Math.toRadians(angle));
 	}
 	
 	@Override
@@ -27,17 +25,27 @@ public class Projectile extends Entity {
 	}
 
 	@Override
-	public void update(double delta) {
-		delta *= 10;
+	public void update(double delta) { // bad code
+		if(vNotDefined) {
+			double v = getContainer().getSliders().get(0).getValue() * 1.5;
+			double angle = getContainer().getSliders().get(1).getValue();
+			this.vx = v * Math.cos(Math.toRadians(angle));
+			this.vy = v * Math.sin(Math.toRadians(angle));
+			vNotDefined = false;
+		}
 		
-		setX(getX() + vx * delta);
-		setY(getY() - vy * delta);
-		vy -= g * delta;
-		
-		if(getY() >= 453) {
-			getContainer().setSimulatedEnded(true);
+		if(getY() > 453) {
+			getContainer().setSimulationEnded(true);
 			getContainer().setRunning(false);
 			setY(453);
+		}
+		
+		if(getY() < 453) {
+			delta *= 10;
+
+			setX(getX() + vx * delta);
+			setY(getY() - vy * delta);
+			vy -= g * delta;
 		}
 	}
 	

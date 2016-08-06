@@ -98,6 +98,11 @@ public class FXMLDocumentController implements Initializable {
 			addSlider("Gravity", 0.1, 30, 9.8);
 			addSlider("Angle", 10, 90, 45);
 		}
+		
+		if(currentTab.equals("Projectile Motion")) {
+			addSlider("Velocity", 1, 100, 50);
+			addSlider("Angle", 5, 85, 45);
+		}
 	}
 	
 	private void initSimulation() {

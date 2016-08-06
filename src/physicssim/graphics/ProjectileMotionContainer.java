@@ -9,7 +9,6 @@ public class ProjectileMotionContainer extends GraphicsContainer {
 
 	public ProjectileMotionContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
 		super(canvas, gc, sliders);
-		init();
 	}
 	
 	public void init() {

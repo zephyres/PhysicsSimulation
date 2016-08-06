@@ -12,12 +12,13 @@ public class Cannon extends Entity {
 	public Cannon(double x, double y) {
 		setX(x);
 		setY(y);
-		this.angle = 70;
 		length = 15;
 	}
 	
 	@Override
 	public void render(GraphicsContext gc) {
+		angle = getContainer().getSliders().get(1).getValue();
+		
 		gc.setFill(Color.WHITE);
 		gc.fillOval(getX() - WIDTH / 2, getY() - HEIGHT / 2, WIDTH, HEIGHT);
 		gc.setLineWidth(5);
@@ -26,8 +27,6 @@ public class Cannon extends Entity {
 	}
 
 	@Override
-	public void update(double delta) {
-		
-	}
+	public void update(double delta) {}
 	
 }

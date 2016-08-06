@@ -1,6 +1,7 @@
 package physicssim.graphics;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public abstract class GraphicsContainer extends AnimationTimer {
 	
-	private boolean isRunning;
+	private boolean isRunning, isRunningBuffer;
 	private boolean isDifferent;
 	private boolean simulatedEnded;
 	private ArrayList<Slider> sliders;
@@ -27,11 +28,13 @@ public abstract class GraphicsContainer extends AnimationTimer {
 		this.isDifferent = true;
 		this.isRunning = false;
 		this.simulatedEnded = false;
+		this.isRunningBuffer = false;
 		
 		this.activeEntities = new ArrayList<Entity>();
 		this.previousTime = System.nanoTime();
 		
 		setBackgroundColor(Color.BLACK);
+		init();
 	}
 	
 	public void handle(long currentTime) {
@@ -41,6 +44,12 @@ public abstract class GraphicsContainer extends AnimationTimer {
 		render(gc);
 		if(isRunning()) {
 			update(delta);
+		}
+		
+		isRunning = isRunningBuffer;
+		if(isRunning && simulatedEnded) {
+			init();
+			this.simulatedEnded = false;
 		}
 	}
 	
@@ -67,8 +76,9 @@ public abstract class GraphicsContainer extends AnimationTimer {
 	}
 	
 	public void removeAllEntities() {
-		for(Entity e : activeEntities)
-			removeEntity(e);
+		for(int i = activeEntities.size()-1; i > 0; i--)
+			activeEntities.get(i).setContainer(null);
+		activeEntities.clear();
 	}
 	
 	public void setBackgroundColor(Color c) {
@@ -93,10 +103,10 @@ public abstract class GraphicsContainer extends AnimationTimer {
 	}
 	
 	public boolean isRunning() {
-		return isRunning;
+		return isRunningBuffer;
 	}
 	
-	public void setSimulatedEnded(boolean s) {
+	public void setSimulationEnded(boolean s) {
 		this.simulatedEnded = s;
 	}
 	
@@ -109,13 +119,7 @@ public abstract class GraphicsContainer extends AnimationTimer {
 	}
 	
 	public void setRunning(boolean isRunning) {
-		System.out.println(isRunning);
-		if(isRunning && simulatedEnded) {
-			init();
-			this.simulatedEnded = false;
-		}
-		
-		this.isRunning = isRunning;
+		this.isRunningBuffer = isRunning;
 	}
 	
 	public abstract void init();
