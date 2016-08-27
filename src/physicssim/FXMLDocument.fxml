@@ -26,7 +26,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView prefHeight="587.0" prefWidth="283.0" />
+                              <ListView fx:id="workList" prefHeight="587.0" prefWidth="283.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -35,7 +35,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView prefHeight="667.0" prefWidth="433.0" />
+                              <ListView fx:id="collisionsList" prefHeight="667.0" prefWidth="433.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -53,7 +53,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView prefHeight="665.0" prefWidth="432.0" />
+                              <ListView fx:id="gravitationList" prefHeight="665.0" prefWidth="432.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -63,7 +63,7 @@
          </children></AnchorPane>
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="738.0" SplitPane.resizableWithParent="false">
          <children>
-            <TabPane prefHeight="640.0" prefWidth="732.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPane" prefHeight="640.0" prefWidth="732.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Overview">
                   <content>

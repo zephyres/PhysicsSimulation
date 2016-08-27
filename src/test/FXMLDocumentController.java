@@ -18,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import physicssim.*;
@@ -30,6 +32,7 @@ public class FXMLDocumentController implements Initializable {
 	private QuestionManager qm;
 	private StatPersister sp;
 	private StatManager sm;
+	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion"};
 	
 	@FXML
 	private ListView<String> basicsList;
@@ -58,18 +61,36 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private Button runButton;
 	
+	private ListView[] listViews;
+	@FXML
+	private ListView<String> workList;
+	@FXML
+	private ListView<String> collisionsList;
+	@FXML
+	private ListView<String> gravitationList;
+	@FXML
+	private TabPane tabPane;
+	private Tab simTab;
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
 		sp = new StatPersister();
 		sm = sp.load();
 		
+		simTab = tabPane.getTabs().get(1);
+		
 		basicsList.getItems().addAll("Newton's Laws", "1D Motion", "2D Motion", "Projectile Motion");
+		workList.getItems().addAll("Work", "Kinetic Energy", "Potential Energy", "Conservation of Energy");
+		collisionsList.getItems().addAll("Momentum", "Conservation of Momentum", "Elastic Collisions", "Inelastic Collisions");
 		shmList.getItems().addAll("Spring", "Pendulum");
+		gravitationList.getItems().addAll("Newton's Law of Gravitation");
 		
-		ListView[] listViews = {basicsList, shmList};
+		ListView[] l = {basicsList, shmList};
+		listViews = l;
 		
-		for(ListView lv : listViews)
+		for(ListView lv : listViews) {
 			lv.getSelectionModel().selectedItemProperty().addListener((a, b, c) -> update((String) c));
+		}
 		
 		update("Newton's Laws");
 		updateStatistics();
@@ -183,6 +204,22 @@ public class FXMLDocumentController implements Initializable {
 	}
 	
 	public void update(String id) {
+		if(id == null) return;
+		
+		for(ListView lv : listViews)
+			lv.getSelectionModel().clearSelection();
+		
+		boolean contains = false;
+		for(String s : TOPICS_SIMULATED)
+			if(s.equals(id)) contains = true;
+		
+		if(contains)
+			tabPane.getTabs().add(1, simTab);
+		else if(tabPane.getTabs().size() >= 3) {
+			tabPane.getTabs().remove(1);
+			tabPane.getSelectionModel().clearAndSelect(0);
+		}
+		
 		currentTab = id;
 		initQuestions();
 		initButtonPane();

@@ -24,6 +24,7 @@ public class Pendulum extends Entity {
 		double x2 = x1 - length * 100 * Math.sin(theta);
 		double y2 = y1 + length * 100 * Math.cos(theta);
 		
+		gc.setLineWidth(1);
 		gc.setStroke(Color.WHITE);
 		gc.strokeLine(x1, y1, x2, y2);
 		
