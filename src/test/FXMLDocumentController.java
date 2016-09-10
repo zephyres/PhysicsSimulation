@@ -23,6 +23,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import physicssim.*;
+import physicssim.graphics.SpringContainer;
 import physicssim.question.*;
 
 public class FXMLDocumentController implements Initializable {
@@ -32,7 +33,7 @@ public class FXMLDocumentController implements Initializable {
 	private QuestionManager qm;
 	private StatPersister sp;
 	private StatManager sm;
-	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion"};
+	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion", "Spring"};
 	
 	@FXML
 	private ListView<String> basicsList;
@@ -136,6 +137,11 @@ public class FXMLDocumentController implements Initializable {
 			gc = new ProjectileMotionContainer(canvas, canvas.getGraphicsContext2D(), sliders);
 			gc.start();
 		}
+		
+		if(currentTab.equals("Spring")) {
+			gc = new SpringContainer(canvas, canvas.getGraphicsContext2D(), sliders);
+			gc.start();
+		}
 	}
 	
 	private void addSlider(String name, double min, double max, double val) {
@@ -213,9 +219,9 @@ public class FXMLDocumentController implements Initializable {
 		for(String s : TOPICS_SIMULATED)
 			if(s.equals(id)) contains = true;
 		
-		if(contains)
+		if(contains && tabPane.getTabs().size() < 3)
 			tabPane.getTabs().add(1, simTab);
-		else if(tabPane.getTabs().size() >= 3) {
+		else if(tabPane.getTabs().size() >= 3 && !contains) {
 			tabPane.getTabs().remove(1);
 			tabPane.getSelectionModel().clearAndSelect(0);
 		}
