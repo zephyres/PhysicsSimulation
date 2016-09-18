@@ -13,7 +13,7 @@ public class SpringContainer extends GraphicsContainer {
 	
 	@Override
 	public void init() {
-		addEntity(new Spring(1, 1, 60, 40));
+		addEntity(new Spring(1, 3, 50, 150));
 	}
 	
 }

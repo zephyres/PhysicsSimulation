@@ -28,7 +28,6 @@ public abstract class GraphicsContainer extends AnimationTimer {
 		this.isDifferent = true;
 		this.isRunning = false;
 		this.simulatedEnded = false;
-		this.isRunningBuffer = false;
 		
 		this.activeEntities = new ArrayList<Entity>();
 		this.previousTime = System.nanoTime();
@@ -46,7 +45,6 @@ public abstract class GraphicsContainer extends AnimationTimer {
 			update(delta);
 		}
 		
-		isRunning = isRunningBuffer;
 		if(isRunning && simulatedEnded) {
 			init();
 			this.simulatedEnded = false;
@@ -103,7 +101,7 @@ public abstract class GraphicsContainer extends AnimationTimer {
 	}
 	
 	public boolean isRunning() {
-		return isRunningBuffer;
+		return isRunning;
 	}
 	
 	public void setSimulationEnded(boolean s) {
@@ -119,7 +117,7 @@ public abstract class GraphicsContainer extends AnimationTimer {
 	}
 	
 	public void setRunning(boolean isRunning) {
-		this.isRunningBuffer = isRunning;
+		this.isRunning = isRunning;
 	}
 	
 	public abstract void init();
