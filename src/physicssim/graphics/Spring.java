@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 
 public class Spring extends Entity {
 	final private double TOP = 10, MID = 215;
-	final private double RADIUS = 12;
 	final private double LINE_LENGTH = 10;
 	
+	private double radius;
 	private double displacement;
 	private double mass;
 	private double k;
@@ -17,21 +17,19 @@ public class Spring extends Entity {
 	private int lines;
 	
 	public Spring(double m, double k, double d, double ey) {
-		this.mass = m;
+		setMass(m);
 		this.ey = ey;
-		
-		setSpringConstant(k);
 		setX(MID);
-		setDisplacement(d);
-		setY(ey + getDisplacement());
 		
-		a = (k / m) * getDisplacement();
-		v = 0;
+		updateValues();
 	}
 	
 	@Override
 	public void render(GraphicsContext gc) {
-		double dy = getY() - TOP + RADIUS;
+		gc.setStroke(Color.AQUA);
+		gc.strokeLine(0, ey, 500, ey);
+		
+		double dy = getY() - TOP - radius + 10;
 		double sep = (dy - 2*LINE_LENGTH) / (lines-1);
 		
 		double[] xCoords = new double[lines+3];
@@ -67,7 +65,14 @@ public class Spring extends Entity {
 		}
 		
 		gc.setFill(Color.GRAY);
-		gc.fillOval(MID - RADIUS, getY(), RADIUS*2, RADIUS*2);
+		gc.fillOval(MID - radius, getY() - radius, radius*2, radius*2);
+		
+		gc.setStroke(Color.WHITE);
+		gc.setLineWidth(2);
+		gc.fillText(getStatistics(), 20, 375);
+		
+		if(getContainer().isDifferent())
+			updateValues();
 	}
 
 	@Override
@@ -79,16 +84,51 @@ public class Spring extends Entity {
 		setY(ey + getDisplacement());
 	}
 	
-	private void setDisplacement(double d) {
+	public void setDisplacement(double d) {
 		this.displacement = d;
 	}
 	
-	private double getDisplacement() {
+	public double getDisplacement() {
 		return displacement;
 	}
 	
-	private void setSpringConstant(double k) {
+	public void setMass(double m) {
+		this.mass = m;
+		radius = 10*Math.exp(0.05*mass);
+	}
+	
+	public double getMass() {
+		return mass;
+	}
+	
+	public void setSpringConstant(double k) {
 		this.k = k;
-		lines = (int) (15 * Math.sqrt(k));
+		lines = (int) (5 * Math.sqrt(5*k));
+	}
+	
+	public double getSpringContant() {
+		return k;
+	}
+	
+	private String getStatistics() {
+		return String.format(
+			"Displacement: %.2fm\nVelocity: %.2fm/s\nAcceleration: %.2fm/s²\nPeriod: %.2fs", 
+			getDisplacement(), v, a, 2*Math.PI*Math.sqrt(getMass()/k)
+		);
+	}
+	
+	private void updateValues() {
+		if(getContainer() != null) {
+			setDisplacement(getContainer().getSliders().get(0).getValue());
+			setY(ey + getDisplacement());
+			setMass(getContainer().getSliders().get(1).getValue());
+			setSpringConstant(getContainer().getSliders().get(2).getValue());
+			
+			a = (k / getMass()) * getDisplacement();
+			v = 0;
+			
+			getContainer().setIsDifferent(false);
+			getContainer().setRunning(false);
+		}
 	}
 }

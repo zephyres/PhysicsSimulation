@@ -112,7 +112,7 @@ public class FXMLDocumentController implements Initializable {
 		gridPane.getChildren().remove(0, gridPane.getChildren().size());
 		sliders = new ArrayList<Slider>();
 		gridPane.setVgap(20);
-		gridPane.getColumnConstraints().get(0).setMaxWidth(80);
+		gridPane.getColumnConstraints().get(0).setMaxWidth(160);
 		gridPane.getColumnConstraints().get(0).halignmentProperty().set(HPos.LEFT);
 		
 		if(currentTab.equals("Pendulum")) {
@@ -124,6 +124,12 @@ public class FXMLDocumentController implements Initializable {
 		if(currentTab.equals("Projectile Motion")) {
 			addSlider("Velocity", 1, 100, 50);
 			addSlider("Angle", 5, 85, 45);
+		}
+		
+		if(currentTab.equals("Spring")) {
+			addSlider("Max Displacement", 0, 100, 50);
+			addSlider("Mass", 1, 20, 10);
+			addSlider("Spring Constant", 1, 10, 5);
 		}
 	}
 	
