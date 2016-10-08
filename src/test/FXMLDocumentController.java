@@ -23,6 +23,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import physicssim.*;
+import physicssim.graphics.InelasticCollisionContainer;
 import physicssim.graphics.SpringContainer;
 import physicssim.question.*;
 
@@ -33,7 +34,7 @@ public class FXMLDocumentController implements Initializable {
 	private QuestionManager qm;
 	private StatPersister sp;
 	private StatManager sm;
-	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion", "Spring"};
+	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion", "Spring", "Inelastic Collisions"};
 	
 	@FXML
 	private ListView<String> basicsList;
@@ -86,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
 		shmList.getItems().addAll("Spring", "Pendulum");
 		gravitationList.getItems().addAll("Newton's Law of Gravitation");
 		
-		ListView[] l = {basicsList, shmList};
+		ListView[] l = {basicsList, shmList, collisionsList, gravitationList, workList};
 		listViews = l;
 		
 		for(ListView lv : listViews) {
@@ -146,6 +147,11 @@ public class FXMLDocumentController implements Initializable {
 		
 		if(currentTab.equals("Spring")) {
 			gc = new SpringContainer(canvas, canvas.getGraphicsContext2D(), sliders);
+			gc.start();
+		}
+		
+		if(currentTab.equals("Inelastic Collisions")) {
+			gc = new InelasticCollisionContainer(canvas, canvas.getGraphicsContext2D(), sliders);
 			gc.start();
 		}
 	}

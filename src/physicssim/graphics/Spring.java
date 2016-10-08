@@ -68,7 +68,7 @@ public class Spring extends Entity {
 		gc.fillOval(MID - radius, getY() - radius, radius*2, radius*2);
 		
 		gc.setStroke(Color.WHITE);
-		gc.setLineWidth(2);
+		gc.setFill(Color.WHITE);
 		gc.fillText(getStatistics(), 20, 375);
 		
 		if(getContainer().isDifferent())
