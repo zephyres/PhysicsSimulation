@@ -23,8 +23,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import physicssim.*;
-import physicssim.graphics.InelasticCollisionContainer;
-import physicssim.graphics.SpringContainer;
+import physicssim.graphics.*;
 import physicssim.question.*;
 
 public class FXMLDocumentController implements Initializable {
@@ -34,7 +33,7 @@ public class FXMLDocumentController implements Initializable {
 	private QuestionManager qm;
 	private StatPersister sp;
 	private StatManager sm;
-	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion", "Spring", "Inelastic Collisions"};
+	private final String[] TOPICS_SIMULATED = {"Pendulum", "Projectile Motion", "Spring", "Inelastic Collisions", "Elastic Collisions"};
 	
 	@FXML
 	private ListView<String> basicsList;
@@ -132,6 +131,20 @@ public class FXMLDocumentController implements Initializable {
 			addSlider("Mass", 1, 20, 10);
 			addSlider("Spring Constant", 1, 10, 5);
 		}
+		
+		if(currentTab.equals("Inelastic Collisions")) {
+			addSlider("Green Ball Mass", 5, 25, 15);
+			addSlider("Green Ball Speed", 10, 110, 60);
+			addSlider("Red Ball Mass", 5, 25, 15);
+			addSlider("Red Ball Speed", 10, 110, 60);
+		}
+		
+		if(currentTab.equals("Elastic Collisions")) {
+			addSlider("Green Ball Mass", 5, 25, 15);
+			addSlider("Green Ball Speed", 10, 110, 60);
+			addSlider("Red Ball Mass", 5, 25, 15);
+			addSlider("Red Ball Speed", 10, 110, 60);
+		}
 	}
 	
 	private void initSimulation() {
@@ -152,6 +165,11 @@ public class FXMLDocumentController implements Initializable {
 		
 		if(currentTab.equals("Inelastic Collisions")) {
 			gc = new InelasticCollisionContainer(canvas, canvas.getGraphicsContext2D(), sliders);
+			gc.start();
+		}
+		
+		if(currentTab.equals("Elastic Collisions")) {
+			gc = new ElasticCollisionContainer(canvas, canvas.getGraphicsContext2D(), sliders);
 			gc.start();
 		}
 	}

@@ -6,11 +6,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
-public class InelasticCollisionContainer extends GraphicsContainer {
+public class ElasticCollisionContainer extends GraphicsContainer {
 	
 	private Ball ball1, ball2;
-
-	public InelasticCollisionContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
+	
+	public ElasticCollisionContainer(Canvas canvas, GraphicsContext gc, ArrayList<Slider> sliders) {
 		super(canvas, gc, sliders);
 	}
 
@@ -22,8 +22,8 @@ public class InelasticCollisionContainer extends GraphicsContainer {
 		double v2 = getSliders().get(3).getValue();
 		
 		removeAllEntities();
-		ball1 = new Ball(10, 300, 10, v1, m1, 0, Color.GREEN);
-		ball2 = new Ball(400, 300, 10, -v2, m2, 0, Color.RED);
+		ball1 = new Ball(10, 300, 10, v1, m1, 1, Color.GREEN);
+		ball2 = new Ball(400, 300, 10, -v2, m2, 1, Color.RED);
 		addEntity(ball1);
 		addEntity(ball2);
 	}
